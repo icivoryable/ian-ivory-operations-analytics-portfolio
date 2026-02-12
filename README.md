@@ -27,3 +27,6 @@ Note: All materials have been redacted and/or simulated to remove proprietary in
 /docs
     resume.md
     landing_note.md
+=======
+# ian-ivory-operations-analytics-portfolio
+>>>>>>> 8d706203cdef94b7366749fd1d795c060bf772ef
