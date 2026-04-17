@@ -51,8 +51,6 @@ Explicit handling of reporting cutoff ambiguity
 ### Environment Note
 This dashboard was developed in Power BI Desktop within a cloud VM environment. Due to environment access limitations after development, the final PBIX file does not include all calculations.
 
-This dashboard represents an operational KPI tracking system built under real-world infrastructure constraints. Due to source system limitations, the model was reconstructed using synthetic data and partial exports. The goal of this project is to demonstrate KPI design, performance logic, and executive reporting — not production data fidelity.
-
 To ensure reproducibility, this repository documents:
 
 The full data schema
