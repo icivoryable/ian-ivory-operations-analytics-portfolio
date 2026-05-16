@@ -136,9 +136,10 @@ Beyond dashboards and reports:
 
 ## 📬 Contact & Links
 
-- **Email:** [your.email@example.com]
-- **LinkedIn:** [Your LinkedIn Profile]
+- **Email:** [ian05@atomicmail.io]
+- **LinkedIn:** [(www.linkedin.com/in/ian-ivory)]
 - **GitHub:** [@icivoryable](https://github.com/icivoryable)
+- **Website:** [(https://icivoryable.github.io/Ian-Ivory/)]
 
 ---
 
