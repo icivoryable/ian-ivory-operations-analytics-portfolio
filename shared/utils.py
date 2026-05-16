@@ -217,3 +217,158 @@ def correlation_matrix(data, method='pearson', min_correlation=0.3):
     corr = corr.mask(mask)
     
     return corr
+
+
+
+# Project data paths
+PROJECT_ROOT = Path(__file__).parent.parent
+DATA_PATHS = {
+    'workforce-support-analytics': PROJECT_ROOT / 'projects' / 'workforce-support-analytics' / 'data',
+    'kpi-operations-dashboard': PROJECT_ROOT / 'projects' / 'kpi-operations-dashboard' / 'data',
+    'business-analysis-artifacts': PROJECT_ROOT / 'projects' / 'business-analysis-artifacts' / 'data',
+}
+
+OUTPUT_PATH = PROJECT_ROOT / 'outputs'
+
+
+def load_data(project_name, filename=None):
+    """
+    Load data from a specific project directory.
+    
+    Parameters:
+        project_name (str): Name of the project folder
+        filename (str): Optional specific filename. If None, looks for .csv files
+    
+    Returns:
+        pd.DataFrame: Loaded data
+    
+    Example:
+        df = load_data('workforce-support-analytics')
+    """
+    if project_name not in DATA_PATHS:
+        raise ValueError(f"Project '{project_name}' not found. Available: {list(DATA_PATHS.keys())}")
+    
+    data_dir = DATA_PATHS[project_name]
+    
+    if not data_dir.exists():
+        raise FileNotFoundError(f"Data directory not found: {data_dir}")
+    
+    # If specific filename provided, load it
+    if filename:
+        filepath = data_dir / filename
+        if not filepath.exists():
+            raise FileNotFoundError(f"File not found: {filepath}")
+        return pd.read_csv(filepath)
+    
+    # Otherwise, find and load the first CSV
+    csv_files = list(data_dir.glob('*.csv'))
+    if not csv_files:
+        raise FileNotFoundError(f"No CSV files found in {data_dir}")
+    
+    return pd.read_csv(csv_files[0])
+
+
+def save_output(df, filename, format='csv'):
+    """
+    Save analysis results to outputs directory.
+    
+    Parameters:
+        df (pd.DataFrame): Data to save
+        filename (str): Output filename (without extension)
+        format (str): 'csv' or 'excel'
+    """
+    OUTPUT_PATH.mkdir(exist_ok=True)
+    
+    if format == 'csv':
+        filepath = OUTPUT_PATH / f"{filename}.csv"
+        df.to_csv(filepath, index=False)
+    elif format == 'excel':
+        filepath = OUTPUT_PATH / f"{filename}.xlsx"
+        df.to_excel(filepath, index=False)
+    else:
+        raise ValueError(f"Format '{format}' not supported. Use 'csv' or 'excel'")
+    
+    print(f"✓ Saved to {filepath}")
+    return filepath
+
+
+def describe_data(df, include_nulls=True):
+    """
+    Print a detailed description of the dataset.
+    """
+    print(f"\n{'='*60}")
+    print(f"Dataset Overview")
+    print(f"{'='*60}")
+    print(f"Shape: {df.shape[0]} rows × {df.shape[1]} columns")
+    print(f"\nColumns: {', '.join(df.columns)}")
+    print(f"\nData Types:\n{df.dtypes}")
+    
+    if include_nulls:
+        print(f"\nMissing Values:\n{df.isnull().sum()}")
+    
+    print(f"\nBasic Statistics:\n{df.describe()}")
+    print(f"{'='*60}\n")
+
+
+def remove_outliers(df, column, method='iqr', threshold=3):
+    """
+    Remove outliers from a dataset using IQR or Z-score method.
+    """
+    if method == 'iqr':
+        Q1 = df[column].quantile(0.25)
+        Q3 = df[column].quantile(0.75)
+        IQR = Q3 - Q1
+        lower_bound = Q1 - 1.5 * IQR
+        upper_bound = Q3 + 1.5 * IQR
+        return df[(df[column] >= lower_bound) & (df[column] <= upper_bound)]
+    
+    elif method == 'zscore':
+        from scipy import stats
+        z_scores = np.abs(stats.zscore(df[column]))
+        return df[z_scores < threshold]
+    
+    else:
+        raise ValueError(f"Method '{method}' not supported. Use 'iqr' or 'zscore'")
+
+
+def normalize_column(df, column, method='minmax'):
+    """
+    Normalize a column to [0, 1] range or using Z-score.
+    """
+    if method == 'minmax':
+        return (df[column] - df[column].min()) / (df[column].max() - df[column].min())
+    
+    elif method == 'zscore':
+        return (df[column] - df[column].mean()) / df[column].std()
+    
+    else:
+        raise ValueError(f"Method '{method}' not supported. Use 'minmax' or 'zscore'")
+
+
+def fill_missing(df, column, method='mean'):
+    """
+    Fill missing values in a column.
+    """
+    df = df.copy()
+    
+    if method == 'mean':
+        df[column].fillna(df[column].mean(), inplace=True)
+    elif method == 'median':
+        df[column].fillna(df[column].median(), inplace=True)
+    elif method == 'forward_fill':
+        df[column].fillna(method='ffill', inplace=True)
+    elif method == 'backward_fill':
+        df[column].fillna(method='bfill', inplace=True)
+    else:
+        raise ValueError(f"Method '{method}' not supported")
+    
+    return df
+
+
+def correlation_analysis(df, numeric_only=True):
+    """
+    Generate correlation matrix for numeric columns.
+    """
+    if numeric_only:
+        return df.select_dtypes(include=[np.number]).corr()
+    return df.corr()
