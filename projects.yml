@@ -1,0 +1,45 @@
+projects:
+  - name: "Workforce Support Analytics & ROI"
+    url: "https://github.com/icivoryable/ian-ivory-operations-analytics-portfolio/tree/main/projects/workforce-support-analytics"
+    image: "https://raw.githubusercontent.com/icivoryable/ian-ivory-operations-analytics-portfolio/main/projects/workforce-support-analytics/visuals/retention_probability_curve.png"
+    description: "Statistical modeling identifying Psychological Safety as the #1 retention driver. Demonstrated positive ROI by Month 8."
+    language: "Python, Statsmodels, Scikit-Learn"
+    stars: 0
+    updated: "2026-05-17"
+
+  - name: "Intern KPI Operations Dashboard"
+    url: "https://github.com/icivoryable/ian-ivory-operations-analytics-portfolio/tree/main/projects/kpi-operations-dashboard"
+    image: "https://raw.githubusercontent.com/icivoryable/ian-ivory-operations-analytics-portfolio/main/projects/kpi-operations-dashboard/visuals/KPI%20Distribution%20By%20Intern.png"
+    description: "Power BI performance tracking for a multi-state program. Standardized 15% reporting variance using DAX."
+    language: "Power BI, DAX, Azure VM"
+    stars: 0
+    updated: "2026-05-17"
+
+  - name: "Technology Business Analysis"
+    url: "https://github.com/icivoryable/ian-ivory-operations-analytics-portfolio/tree/main/projects/business-analysis-artifacts"
+    image: "https://raw.githubusercontent.com/icivoryable/ian-ivory-operations-analytics-portfolio/main/projects/business-analysis-artifacts/as-is-to-be-process-map/Context-Aware%20User%20Support%20Workflow%20(2).pdf"
+    description: "Requirements engineering and process maps for a privacy-sensitive productivity platform."
+    language: "Visio, Excel, Requirements Engineering"
+    stars: 0
+    updated: "2026-05-17"
+
+  - name: "Accessible Task Manager"
+    url: "https://github.com/icivoryable/accessible-task-manager"
+    description: "A fully accessible task management app built with React and Django, featuring screen reader support and keyboard navigation for neurodivergent users."
+    language: "React, Python, Django"
+    stars: 45
+    updated: "2026-04-20"
+
+  - name: "Sensory-Friendly UI Library"
+    url: "https://github.com/icivoryable/sensory-friendly-ui"
+    description: "A React component library with motion-reduced animations, high contrast modes, and customizable sensory settings for neurodivergent users."
+    language: "React, TypeScript, CSS"
+    stars: 52
+    updated: "2026-05-10"
+
+  - name: "Inclusive Design Toolkit"
+    url: "https://github.com/icivoryable/inclusive-design-toolkit"
+    description: "A collection of reusable components and patterns for building WCAG-compliant interfaces."
+    language: "JavaScript, CSS, HTML"
+    stars: 28
+    updated: "2026-03-15"
