@@ -53,3 +53,4 @@ Access project metadata programmatically:
 ---
 
 *All projects are open source and available on my GitHub profile.*
+
